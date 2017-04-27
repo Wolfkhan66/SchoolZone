@@ -1,0 +1,9 @@
+﻿@model SchoolZone.SID.Mvc.ViewModels.SidIndexViewModel
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        @foreach (var item in Model.A2Z)
+        { @Html.RouteLink(item, "getSchools", new { A2z = item, Phase = Model.SchoolPhase }, new { @class = "btn btn-default" })  }
+    </div>
+    <div class="btn-group" role="group" aria-label="Phase Group"><h5><span class="label label-czone">Phase:</span></h5></div>
+    @{Html.RenderPartial("_PhaseDropDown", Model);}
+</div>

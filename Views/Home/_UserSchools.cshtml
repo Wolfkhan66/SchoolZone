@@ -1,0 +1,85 @@
+﻿
+@model List<SchoolZone.SID.Mvc.Models.SchoolModel>
+@{
+    <div id="Schools">
+        <div class="list-group panel">
+            @foreach (var School in Model)
+            {
+                string Details = "Details" + School.Id;
+                string Contacts = "Contacts" + School.Id;
+                School.Contacts.TableID = "ContactsTable" + School.Id;
+                string Reports = "Reports" + School.Id;
+                string Clusters = "Clusters" + School.Id;
+                School.Clusters.TableID = "ClustersTable" + School.Id;
+                string Closures = "Closures" + School.Id;
+                string ClosuresLink = "https://apps.eastsussex.gov.uk/educationandlearning/schools/schoolsearch/" + School.FullCode + ".aspx";
+
+                <a href="#@School.Id" class="list-group-item-czone list-group-item " data-toggle="collapse" data-parent="#Schools"><span class="glyphicon-home glyphicon"></span> <b>@School.Name</b></a>
+                <div class="collapse" id="@School.Id">
+                    <div class="thumbnail">
+
+                        <div class="row">
+                            <div class="col-sm-2"><span class="label label-czone">Phone Number:</span></div>
+                            <div class="col-sm-10">@School.Telephone</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><span class="label label-czone">Email Address</span></div>
+                            <div class="col-sm-10"><a href="mailto:@School.OfficeEmail">@School.OfficeEmail</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2"><span class="label label-czone">DfE Code:</span></div>
+                            <div class="col-sm-10">@School.Code</div>
+                        </div>
+                        <p>  </p>
+                        <div class="panel with-nav-tabs panel-czone">
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#@Details" data-toggle="tab"><b>Details</b></a></li>
+                                    <li><a href="#@Contacts" data-toggle="tab"><b>Contacts</b></a></li>
+                                    <li><a href="#@Reports" data-toggle="tab"><b>Reports</b></a></li>
+                                    <li><a href="#@Clusters" data-toggle="tab"><b>Clusters</b></a></li>
+                                    <li><a href="#@Closures" data-toggle="tab"><b>Closures</b></a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    @{Html.RenderPartial("_SchoolDetails", School);}
+                                    <div class="tab-pane fade" id="@Contacts">
+                                        @{Html.RenderPartial("_SIDTable", School.Contacts);}
+                                    </div>
+                                    <div class="tab-pane fade" id="@Reports">
+                                        <ul>
+                                            @{ if (@School.Report != "None")
+                                                {
+                                                    <li> <a href="@School.Report">School Specific (O365)</a> </li>
+                                                }
+                                            }
+                                            <li> <a href="https://eastsussex.sharepoint.com/sites/czone/General%20Documents/Forms/AllItems.aspx">General (O365)</a> </li>
+                                            @{ foreach (var item in School.SSRSReports)
+                                                {
+                                                    if (item.DisplayName == "Chart - Ethnicity" || item.DisplayName == "Table - Free school meal eligibility")
+                                                    {
+                                                    }
+                                                    var link = School.ReportServerURL + item.DocumentName + "&SchoolID=" + School.Id + item.ExtraReportParameters + "&rs:command=Render";
+                                                    <li> <a href="@link">@item.DisplayName</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="@Clusters">
+                                        @{Html.RenderPartial("_SIDTable", School.Clusters);}
+                                    </div>
+                                    <div class="tab-pane fade" id="@Closures">
+                                        <ul>
+                                            <li><a href="@ClosuresLink">@School.Name Closures</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            }
+        </div>
+    </div>
+}

@@ -1,0 +1,79 @@
+﻿@model SchoolZone.SID.Mvc.Models.SchoolModel
+
+@{string Details = "Details" + Model.Id; }
+<div class="tab-pane fade in active" id="@Details">
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Address:</span></div>
+        <div class="col-sm-10">@Model.Address</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Fax:</span></div>
+        <div class="col-sm-10">@Model.Fax</div>
+    </div>
+    <div class="row">
+        @{
+            if (Model.Website == "None Found")
+            {
+                <div class="col-sm-2"><span class="label label-czone">School Website:</span></div>
+                <div class="col-sm-10">@Model.Website</div>
+            }
+            else
+            {
+                <div class="col-sm-2"><span class="label label-czone">School Website:</span></div>
+                <div class="col-sm-10"><a href="@Model.Website"> @Model.Name </a></div>
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Type:</span></div>
+        <div class="col-sm-10">@Model.SchoolTypeName</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Phase:</span></div>
+        <div class="col-sm-10">@Model.PhaseName</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Status:</span></div>
+        <div class="col-sm-10">@Model.SchoolStatusName</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Specialism:</span></div>
+        <div class="col-sm-10">@Model.Specialism</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Age range:</span></div>
+        <div class="col-sm-10">@Model.AgeRangeLower to @Model.AgeRangeUpper</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Gender:</span></div>
+        @{
+            switch (Model.Gender)
+            {
+                case "M":
+                    <div class="col-sm-10">Mixed</div>
+                    break;
+                case "B":
+                    <div class="col-sm-10">Boys</div>
+                    break;
+                case "G":
+                    <div class="col-sm-10">Girls</div>
+                    break;
+                default:
+                    <div class="col-sm-10">N/A</div>
+                    break;
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">OFSTED (URN) Code:</span></div>
+        <div class="col-sm-10">@Model.SchoolURN</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Cost Centre:</span></div>
+        <div class="col-sm-10">@Model.CostCentre</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><span class="label label-czone">Courier Visits:</span></div>
+        <div class="col-sm-10">@Model.CourierVisits</div>
+    </div>
+</div>

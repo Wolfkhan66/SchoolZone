@@ -1,0 +1,51 @@
+﻿@model SchoolZone.SID.Mvc.ViewModels.SidIndexViewModel
+@using ClientDependency.Core.Mvc
+@using Escc.ClientDependencyFramework
+@{
+    Html.RequiresCss(CssFileAlias.Resolve("Home"));
+    Html.RequiresCss(CssFileAlias.Resolve("DataTable"));
+    Html.RequiresJs(JsFileAlias.Resolve("DataTable"));
+    Html.RequiresJs(JsFileAlias.Resolve("DataTableInit"));
+}
+
+<h2>Schools Information Database</h2>
+
+@{
+    if (!Model.ESCC)
+    {
+        <div class="panel panel-czone">
+            <div class="panel-heading"><b>Your Schools</b></div>
+            <div class="panel-body">
+                @if (Model.UserSchools.Count > 0)
+                {
+                    Html.RenderPartial("_UserSchools", Model.UserSchools);
+                }
+                else
+                {
+                    <h4>No schools found for: @Model.User</h4>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="panel panel-czone">
+        <div class="panel-heading"><b>All Schools</b></div>
+        <div class="panel-body">
+            @{Html.RenderPartial("_A2ZNavigation", Model);}
+            <h5><span class="label label-czone">Showing results for:</span>@Model.Nav</h5>
+            <p />
+            @if (Model.ESCC)
+            {
+                Html.RenderPartial("_UserSchools", Model.UserSchools);
+            }
+            else
+            {
+                Html.RenderPartial("_GeneralSchools", Model.Schools);
+            }
+
+            @{Html.RenderPartial("_A2ZNavigation", Model);}
+        </div>
+    </div>
+}
+
+

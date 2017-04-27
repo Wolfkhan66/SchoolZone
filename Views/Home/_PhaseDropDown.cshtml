@@ -1,0 +1,35 @@
+﻿@model SchoolZone.SID.Mvc.ViewModels.SidIndexViewModel
+
+@{
+    string phase = "";
+
+    switch (Model.SchoolPhase)
+    {
+        case 0:
+            phase = "All Schools";
+            break;
+        case 21:
+            phase = "All Through";
+            break;
+        case 2:
+            phase = "Primary";
+            break;
+        case 3:
+            phase = "Secondary";
+            break;
+        case 4:
+            phase = "Special";
+            break;
+    }
+}
+<div class="btn-group mr-2" role="group" aria-label="Second group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> @phase <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li>@Html.RouteLink("All Schools", "getSchools", new { A2z = Model.Nav, Phase = 0 })</li>
+            <li role="separator" class="divider"></li>
+            <li>@Html.RouteLink("All Through", "getSchools", new { A2z = Model.Nav, Phase = 21 })</li>
+            <li>@Html.RouteLink("Primary", "getSchools", new { A2z = Model.Nav, Phase = 2 })</li>
+            <li>@Html.RouteLink("Secondary", "getSchools", new { A2z = Model.Nav, Phase = 3 })</li>
+            <li>@Html.RouteLink("Special", "getSchools", new { A2z = Model.Nav, Phase = 4 })</li>
+        </ul>
+</div>
